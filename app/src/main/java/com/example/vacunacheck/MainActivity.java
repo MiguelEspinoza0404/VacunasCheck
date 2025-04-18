@@ -34,11 +34,14 @@ public class MainActivity extends AppCompatActivity {
             String password = editTextPassword.getText().toString();
 
             if (username.equals(USERNAME) && password.equals(PASSWORD)) {
-                Toast.makeText(MainActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Acceso Concedido", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(MainActivity.this, MainPage.class);
                 startActivity(intent);
                 finish();
+            }else{
+                Toast.makeText(MainActivity.this, "Datos incorrectos", Toast.LENGTH_SHORT).show();
+
             }
 
         });

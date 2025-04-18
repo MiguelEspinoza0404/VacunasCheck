@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <!-- Encabezados -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -16,6 +15,60 @@
         android:text="GRUPO 5"
         android:gravity="center"
         android:textSize="20sp" />
+
+
+    <LinearLayout
+        android:layout_width="359dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="321dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="Espinoza Vergara Miguel Angel"
+            android:textColor="#444"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="345dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="Sanchez Albarracin Luccy Veronica"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="326dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="Ramirez Aviles Sebastian Emilio"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="302dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="Robalino Aguilar Eliud Issac"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="348dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="Fajardo Zambrano Bianca Denisse"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/title"
