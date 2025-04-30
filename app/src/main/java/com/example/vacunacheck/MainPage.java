@@ -1,6 +1,8 @@
 package com.example.vacunacheck;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.SharedPreferences;
+import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MainPage extends AppCompatActivity {
@@ -41,6 +46,9 @@ public class MainPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        
+
+
     }
 
     @Override
@@ -51,12 +59,27 @@ public class MainPage extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_about) {
-            showAboutDialog();
+        int id = item.getItemId();
+
+        if (id == R.id.action_about) {
+            Toast.makeText(this, "Aplicación creada por Grupo 5", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.action_logout) {
+            SharedPreferences prefs = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("sesion_activa", false);
+            editor.apply();
+
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
+
 
     private void showAboutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
