@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Registro de usuario"
+            android:textSize="43dp"
+            android:gravity="bottom"
+            />
+
+        <EditText
+            android:id="@+id/etCedula"
+            android:hint="Cédula"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etNombres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombres"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etApellidos"
+            android:hint="Apellidos"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etEdad"
+            android:hint="Edad"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Escoga una nacionalidad:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="bottom" />
+
+        <Spinner
+            android:id="@+id/spinnerNacionalidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Escoga un genero:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="bottom" />
+        <Spinner
+            android:id="@+id/spinnerGenero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <RadioGroup
+            android:id="@+id/rgEstadoCivil"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton android:id="@+id/rbSoltero" android:text="Soltero" />
+            <RadioButton android:id="@+id/rbCasado" android:text="Casado" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvFechaNacimiento"
+            android:text="Seleccione fecha de nacimiento"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ddd"
+            android:textAlignment="center" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Nivel de ingles:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="bottom" />
+        <RatingBar
+            android:id="@+id/ratingIngles"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/btnRegistrar"
+                android:text="Registrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnBorrar"
+                android:text="Borrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"/>
+
+            <Button
+                android:id="@+id/btnCancelar"
+                android:text="Cancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">VacunaCheck</string>
+    <string-array name="nacionalidades">
+        <item>Seleccionar</item>
+        <item>Ecuatoriana</item>
+        <item>Venezolana</item>
+        <item>Peruana</item>
+        <item>Argentina</item>
+    </string-array>
+
+    <string-array name="generos">
+        <item>Seleccionar</item>
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Otro</item>
+    </string-array>
+
 </resources>

@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextUsername, editTextPassword;
     Button buttonLogin;
 
+    Button buttonRegister;
+
     private final String USERNAME = "admin";
     private final String PASSWORD = "1234";
 
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        buttonRegister = findViewById(R.id.buttonRegister);
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
@@ -44,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        buttonRegister.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this , registro.class);
+            startActivity(intent);
+            finish();
         });
 
     }

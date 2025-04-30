@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/group_photo"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:src="@drawable/foto_grupo"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:contentDescription="Foto del grupo" />-->
+
+    <TextView
+        android:id="@+id/group_info"
+        android:layout_marginTop="10dp"
+        android:text="Integrantes del grupo:\n- Juan Pérez\n- Ana López\n- Carlos Díaz"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_gravity="end"
+        android:layout_marginTop="20dp"
+        android:text="Cerrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
