@@ -5,18 +5,22 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white">
 
-<!--    <ImageView-->
-<!--        android:id="@+id/group_photo"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:src="@drawable/foto_grupo"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:contentDescription="Foto del grupo" />-->
+    <ImageView
+        android:id="@+id/group_photo"
+        android:layout_width="match_parent"
+        android:layout_height="321dp"
+        android:contentDescription="Foto del grupo"
+        android:scaleType="centerCrop"
+        android:src="@drawable/foto_grupo" />
 
     <TextView
         android:id="@+id/group_info"
         android:layout_marginTop="10dp"
-        android:text="Integrantes del grupo:\n- Juan Pérez\n- Ana López\n- Carlos Díaz"
+        android:text="Integrantes del grupo:\n- Miguel Angel Espinoza Vergara
+                      \n- Luccy Veronica Sanchez Albarracin
+                      \n- Eliud Issac Robalino Aguilar
+                      \n- Bianca Denisse Fajardo Zambrano
+                      \n- Sebastian Emilio Ramirez Aviles"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:layout_width="match_parent"
