@@ -11,7 +11,7 @@
         android:layout_height="321dp"
         android:contentDescription="Foto del grupo"
         android:scaleType="centerCrop"
-        android:src="@drawable/foto_grupo" />
+        android:src="@drawable/img" />
 
     <TextView
         android:id="@+id/group_info"

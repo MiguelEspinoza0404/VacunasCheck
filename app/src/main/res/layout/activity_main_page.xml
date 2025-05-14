@@ -27,18 +27,43 @@
         android:textSize="24sp"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@+id/btnMostrarDatos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnConsultarUsuario"
         app:layout_constraintVertical_bias="0.3" />
 
     <Button
-        android:id="@+id/btnMostrarDatos"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnConsultarUsuario"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Mostrar datos registrados"
+        android:text="Consultar Usuario"
         app:layout_constraintTop_toBottomOf="@id/tvWelcome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="24dp"
+        />
+    <Button
+        android:id="@+id/btnCrearUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Crear Usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnMostrarDatos" />
+
+    <Button
+        android:id="@+id/btnMostrarDatos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Mostrar datos registrados"
+        app:layout_constraintTop_toBottomOf="@id/btnConsultarUsuario"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

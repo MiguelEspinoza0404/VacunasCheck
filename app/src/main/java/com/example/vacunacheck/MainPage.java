@@ -41,6 +41,16 @@ public class MainPage extends AppCompatActivity {
         Button btnRecuperar = findViewById(R.id.btnMostrarDatos);
         btnRecuperar.setOnClickListener(v -> recuperarDatos());
 
+        Button btnConsultarUsuario = findViewById(R.id.btnConsultarUsuario);
+        btnConsultarUsuario.setOnClickListener(v -> {
+            Intent intent = new Intent(MainPage.this, ConsultarUsuarioActivity.class);
+            startActivity(intent);
+        });
+        Button btnCrearUsuario = findViewById(R.id.btnCrearUsuario);
+        btnCrearUsuario.setOnClickListener(v -> {
+            Intent intent = new Intent(MainPage.this, CrearUsuarioActivity.class);
+            startActivity(intent);
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
