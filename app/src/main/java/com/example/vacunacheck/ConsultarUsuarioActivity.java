@@ -9,11 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.vacunacheck.Helpers.DBHelper;
 
@@ -38,21 +34,33 @@ public class ConsultarUsuarioActivity extends AppCompatActivity {
         btnActualizar = findViewById(R.id.btnActualizar);
         btnEliminar = findViewById(R.id.btnEliminar);
 
+        // Deshabilitar campos y botones al inicio para evitar edición sin búsqueda previa
+        editTextNombre.setEnabled(false);
+        editTextEmail.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+
         btnBuscar.setOnClickListener(v -> buscarUsuario());
         btnActualizar.setOnClickListener(v -> actualizarUsuario());
         btnEliminar.setOnClickListener(v -> eliminarUsuario());
     }
 
     private void buscarUsuario() {
-        String cedula = editTextCedula.getText().toString();
+        String cedula = editTextCedula.getText().toString().trim();
+
+        if (cedula.isEmpty()) {
+            Toast.makeText(this, "Por favor ingrese la cédula", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM usuarios WHERE cedula = ?", new String[]{cedula});
         Log.d("DB_QUERY", "Cédula: " + cedula);
 
         if (cursor.moveToFirst()) {
-            idUsuarioEncontrado = cursor.getInt(0);
-            editTextNombre.setText(cursor.getString(1));
-            editTextEmail.setText(cursor.getString(2));
+            idUsuarioEncontrado = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+            editTextNombre.setText(cursor.getString(cursor.getColumnIndexOrThrow("nombres")));
+            editTextEmail.setText(cursor.getString(cursor.getColumnIndexOrThrow("email")));
 
             editTextNombre.setEnabled(true);
             editTextEmail.setEnabled(true);
@@ -61,6 +69,10 @@ public class ConsultarUsuarioActivity extends AppCompatActivity {
             Toast.makeText(this, "Usuario encontrado", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Usuario no encontrado", Toast.LENGTH_SHORT).show();
+            // Limpiar y deshabilitar campos y botones si no se encontró usuario
+            limpiarCampos();
+            deshabilitarCampos();
+            idUsuarioEncontrado = -1;
         }
 
         cursor.close();
@@ -68,8 +80,18 @@ public class ConsultarUsuarioActivity extends AppCompatActivity {
     }
 
     private void actualizarUsuario() {
-        String nombre = editTextNombre.getText().toString();
-        String email = editTextEmail.getText().toString();
+        if (idUsuarioEncontrado == -1) {
+            Toast.makeText(this, "Primero busque un usuario válido", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String nombre = editTextNombre.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
+
+        if (nombre.isEmpty() || email.isEmpty()) {
+            Toast.makeText(this, "Nombre y correo no pueden estar vacíos", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues valores = new ContentValues();
@@ -88,22 +110,36 @@ public class ConsultarUsuarioActivity extends AppCompatActivity {
     }
 
     private void eliminarUsuario() {
+        if (idUsuarioEncontrado == -1) {
+            Toast.makeText(this, "Primero busque un usuario válido", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int rows = db.delete("usuarios", "id = ?", new String[]{String.valueOf(idUsuarioEncontrado)});
 
         if (rows > 0) {
             Toast.makeText(this, "Usuario eliminado", Toast.LENGTH_SHORT).show();
-            editTextNombre.setText("");
-            editTextEmail.setText("");
-            editTextCedula.setText("");
-            editTextNombre.setEnabled(false);
-            editTextEmail.setEnabled(false);
-            btnActualizar.setEnabled(false);
-            btnEliminar.setEnabled(false);
+            limpiarCampos();
+            deshabilitarCampos();
+            idUsuarioEncontrado = -1;
         } else {
             Toast.makeText(this, "Error al eliminar", Toast.LENGTH_SHORT).show();
         }
 
         db.close();
+    }
+
+    private void limpiarCampos() {
+        editTextNombre.setText("");
+        editTextEmail.setText("");
+        editTextCedula.setText("");
+    }
+
+    private void deshabilitarCampos() {
+        editTextNombre.setEnabled(false);
+        editTextEmail.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnEliminar.setEnabled(false);
     }
 }

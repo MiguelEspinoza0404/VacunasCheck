@@ -9,20 +9,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.vacunacheck.Helpers.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText editTextUsername, editTextPassword;
     Button buttonLogin, buttonRegister;
     CheckBox checkboxRemember;
-
-    private final String USERNAME = "admin";
-    private final String PASSWORD = "1234";
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         if (prefs.getBoolean("sesion_activa", false)) {
+            // Si la sesión está activa, ir directo a MainPage
             startActivity(new Intent(MainActivity.this, MainPage.class));
             finish();
             return;
@@ -37,17 +34,26 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        buttonRegister = findViewById(R.id.buttonRegister);
-        editTextUsername = findViewById(R.id.editTextUsername);
-        editTextPassword = findViewById(R.id.editTextPassword);
+        dbHelper = new DBHelper(this);
+
+        // Inicialización de vistas
+        editTextUsername = findViewById(R.id.etUsuario);
+        editTextPassword = findViewById(R.id.etConstrasenia);
         buttonLogin = findViewById(R.id.buttonLogin);
+        buttonRegister = findViewById(R.id.buttonRegister);
         checkboxRemember = findViewById(R.id.checkboxRemember);
 
         buttonLogin.setOnClickListener(view -> {
-            String username = editTextUsername.getText().toString();
-            String password = editTextPassword.getText().toString();
+            String username = editTextUsername.getText().toString().trim();
+            String password = editTextPassword.getText().toString().trim();
 
-            if (username.equals(USERNAME) && password.equals(PASSWORD)) {
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Por favor ingrese usuario y contraseña", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar usuario en la base de datos
+            if (dbHelper.validarUsuario(username, password)) {
 
                 if (checkboxRemember.isChecked()) {
                     SharedPreferences.Editor editor = prefs.edit();
@@ -55,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
                     editor.apply();
                 }
 
-                Toast.makeText(MainActivity.this, "Acceso Concedido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Acceso concedido", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, MainPage.class));
                 finish();
 
             } else {
-                Toast.makeText(MainActivity.this, "Datos incorrectos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
             }
         });
 
