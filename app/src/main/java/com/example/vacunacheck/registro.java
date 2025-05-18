@@ -1,66 +1,73 @@
 package com.example.vacunacheck;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.example.vacunacheck.Helpers.DBHelper;
+
 import java.util.Calendar;
 
 public class registro extends AppCompatActivity {
 
-    EditText etCedula, etNombres, etApellidos, etEdad;
-    Spinner spinnerNacionalidad, spinnerGenero;
+    EditText etCedula, etNombres, etApellidos, etUsuario, etContrasenia, etEmail;
+    Spinner spinnerGenero, spinnerPerfil;
     RadioGroup rgEstadoCivil;
     TextView tvFechaNacimiento;
-    RatingBar ratingIngles;
     Calendar selectedDate;
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
+        dbHelper = new DBHelper(this);
+
         etCedula = findViewById(R.id.etCedula);
         etNombres = findViewById(R.id.etNombres);
         etApellidos = findViewById(R.id.etApellidos);
-        etEdad = findViewById(R.id.etEdad);
-        spinnerNacionalidad = findViewById(R.id.spinnerNacionalidad);
+        tvFechaNacimiento = findViewById(R.id.tvFechaNacimiento);
         spinnerGenero = findViewById(R.id.spinnerGenero);
         rgEstadoCivil = findViewById(R.id.rgEstadoCivil);
-        tvFechaNacimiento = findViewById(R.id.tvFechaNacimiento);
-        ratingIngles = findViewById(R.id.ratingIngles);
+        etEmail = findViewById(R.id.etEmail);
+        etUsuario = findViewById(R.id.etUsuario);
+        etContrasenia = findViewById(R.id.etContrasenia);
+        spinnerPerfil = findViewById(R.id.spinnerPerfil);
 
-        ArrayAdapter<CharSequence> nacionalidadAdapter = ArrayAdapter.createFromResource(this,
-                R.array.nacionalidades, android.R.layout.simple_spinner_item);
-        nacionalidadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerNacionalidad.setAdapter(nacionalidadAdapter);
-
+        // Configurar adaptadores para los Spinners
         ArrayAdapter<CharSequence> generoAdapter = ArrayAdapter.createFromResource(this,
                 R.array.generos, android.R.layout.simple_spinner_item);
         generoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGenero.setAdapter(generoAdapter);
 
+        ArrayAdapter<CharSequence> perfilAdapter = ArrayAdapter.createFromResource(this,
+                R.array.perfil, android.R.layout.simple_spinner_item);
+        perfilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPerfil.setAdapter(perfilAdapter);
+
+        // Mostrar DatePicker al pulsar sobre la fecha
         tvFechaNacimiento.setOnClickListener(v -> showDatePicker());
 
+        // Botones
         findViewById(R.id.btnRegistrar).setOnClickListener(v -> registrar());
         findViewById(R.id.btnBorrar).setOnClickListener(v -> borrarCampos());
-        findViewById(R.id.btnCancelar).setOnClickListener(v -> finish()); // vuelve al login
+        findViewById(R.id.btnCancelar).setOnClickListener(v -> {
+            Intent intent = new Intent(registro.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void showDatePicker() {
@@ -78,39 +85,82 @@ public class registro extends AppCompatActivity {
     }
 
     private void registrar() {
-        String estadoCivil = ((RadioButton) findViewById(rgEstadoCivil.getCheckedRadioButtonId())).getText().toString();
-        String datos = etCedula.getText() + ";" +
-                etNombres.getText() + ";" +
-                etApellidos.getText() + ";" +
-                etEdad.getText() + ";" +
-                spinnerNacionalidad.getSelectedItem().toString() + ";" +
-                spinnerGenero.getSelectedItem().toString() + ";" +
-                estadoCivil + ";" +
-                tvFechaNacimiento.getText() + ";" +
-                ratingIngles.getRating();
+        // Validar campos obligatorios
+        if (etCedula.getText().toString().trim().isEmpty()
+                || etNombres.getText().toString().trim().isEmpty()
+                || etApellidos.getText().toString().trim().isEmpty()
+                || tvFechaNacimiento.getText().toString().equals("Seleccione fecha de nacimiento")
+                || spinnerGenero.getSelectedItemPosition() == 0
+                || rgEstadoCivil.getCheckedRadioButtonId() == -1
+                || etEmail.getText().toString().trim().isEmpty()
+                || etUsuario.getText().toString().trim().isEmpty()
+                || etContrasenia.getText().toString().trim().isEmpty()
+                || spinnerPerfil.getSelectedItemPosition() == 0) {
 
-        try {
-            FileOutputStream fos = openFileOutput("registro.txt", MODE_PRIVATE);
-            fos.write(datos.getBytes());
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            Toast.makeText(this, "Por favor, complete todos los campos antes de registrar.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        Log.d("RegistroActivity", datos);
-        Toast.makeText(this, "Datos ingresados correctamente", Toast.LENGTH_SHORT).show();
+        String estadoCivil = ((RadioButton) findViewById(rgEstadoCivil.getCheckedRadioButtonId())).getText().toString();
+
+        // Verificar si la cédula ya existe antes de insertar
+        String cedula = etCedula.getText().toString().trim();
+        if (dbHelper.cedulaExiste(cedula)) {
+            Toast.makeText(this, "Ya existe un usuario con esta cédula", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Intentar insertar usuario
+        boolean exito = dbHelper.insertarUsuario(
+                cedula,
+                etNombres.getText().toString().trim(),
+                etApellidos.getText().toString().trim(),
+                tvFechaNacimiento.getText().toString().trim(),
+                spinnerGenero.getSelectedItem().toString().trim(),
+                estadoCivil.trim(),
+                etEmail.getText().toString().trim(),
+                etUsuario.getText().toString().trim(),
+                etContrasenia.getText().toString().trim(),
+                spinnerPerfil.getSelectedItem().toString().trim()
+        );
+
+        if (exito) {
+            Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+            borrarCampos();
+        } else {
+            Toast.makeText(this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
+            Log.d("REGISTRO", "Registro fallido para cédula: " + cedula);
+        }
     }
 
-
     private void borrarCampos() {
+        boolean hayDatos = !etCedula.getText().toString().isEmpty()
+                || !etNombres.getText().toString().isEmpty()
+                || !etApellidos.getText().toString().isEmpty()
+                || !tvFechaNacimiento.getText().toString().equals("Seleccione fecha de nacimiento")
+                || spinnerGenero.getSelectedItemPosition() != 0
+                || rgEstadoCivil.getCheckedRadioButtonId() != -1
+                || !etEmail.getText().toString().isEmpty()
+                || !etUsuario.getText().toString().isEmpty()
+                || !etContrasenia.getText().toString().isEmpty()
+                || spinnerPerfil.getSelectedItemPosition() != 0;
+
+        if (!hayDatos) {
+            Toast.makeText(this, "No hay datos para borrar", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         etCedula.setText("");
         etNombres.setText("");
         etApellidos.setText("");
-        etEdad.setText("");
-        spinnerNacionalidad.setSelection(0);
+        tvFechaNacimiento.setText("Seleccione fecha de nacimiento");
         spinnerGenero.setSelection(0);
         rgEstadoCivil.clearCheck();
-        tvFechaNacimiento.setText("Seleccione fecha de nacimiento");
-        ratingIngles.setRating(0);
+        etEmail.setText("");
+        etUsuario.setText("");
+        etContrasenia.setText("");
+        spinnerPerfil.setSelection(0);
+
+        Toast.makeText(this, "Datos borrados correctamente", Toast.LENGTH_SHORT).show();
     }
 }

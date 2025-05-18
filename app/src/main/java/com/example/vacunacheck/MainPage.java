@@ -8,26 +8,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.activity.EdgeToEdge;
+
+import android.view.Menu;
+import android.view.MenuItem;
+import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.content.SharedPreferences;
-import android.widget.Button;
-import android.widget.Toast;
-
 
 public class MainPage extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +44,19 @@ public class MainPage extends AppCompatActivity {
             Intent intent = new Intent(MainPage.this, ConsultarUsuarioActivity.class);
             startActivity(intent);
         });
+
         Button btnCrearUsuario = findViewById(R.id.btnCrearUsuario);
         btnCrearUsuario.setOnClickListener(v -> {
             Intent intent = new Intent(MainPage.this, CrearUsuarioActivity.class);
             startActivity(intent);
         });
+
+        // Ajustar padding para sistema de barras (status, nav)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        
-
-
     }
 
     @Override
@@ -72,7 +70,7 @@ public class MainPage extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_about) {
-            Toast.makeText(this, "Aplicación creada por Grupo 5", Toast.LENGTH_SHORT).show();
+            showAboutDialog();
             return true;
         } else if (id == R.id.action_logout) {
             SharedPreferences prefs = getSharedPreferences("sesion", Context.MODE_PRIVATE);
@@ -90,7 +88,6 @@ public class MainPage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     private void showAboutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -107,30 +104,38 @@ public class MainPage extends AppCompatActivity {
     private void recuperarDatos() {
         StringBuilder datos = new StringBuilder();
 
-        try {
-            FileInputStream fis = openFileInput("registro.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+        try (FileInputStream fis = openFileInput("registro.txt");
+             BufferedReader reader = new BufferedReader(new InputStreamReader(fis))) {
+
             String linea;
             while ((linea = reader.readLine()) != null) {
                 datos.append(linea);
             }
-            reader.close();
-            fis.close();
+
         } catch (IOException e) {
             e.printStackTrace();
+            Toast.makeText(this, "No se pudieron recuperar los datos.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String[] campos = datos.toString().split(";");
+
+        // Validar que el archivo tiene la cantidad esperada de campos para evitar errores de ArrayIndexOutOfBounds
+        if (campos.length < 10) {
+            Toast.makeText(this, "Archivo de registro corrupto o incompleto.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         String mensaje = "Cédula: " + campos[0] + "\n" +
                 "Nombres: " + campos[1] + "\n" +
                 "Apellidos: " + campos[2] + "\n" +
-                "Edad: " + campos[3] + "\n" +
-                "Nacionalidad: " + campos[4] + "\n" +
-                "Género: " + campos[5] + "\n" +
-                "Estado Civil: " + campos[6] + "\n" +
-                "Fecha de Nacimiento: " + campos[7] + "\n" +
-                "Nivel de Inglés: " + campos[8];
+                "Fecha de Nacimiento: " + campos[3] + "\n" +
+                "Género: " + campos[4] + "\n" +
+                "Estado Civil: " + campos[5] + "\n" +
+                "Correo: " + campos[6] + "\n" +
+                "Usuario: " + campos[7] + "\n" +
+                "Contraseña: " + campos[8] + "\n" +
+                "Perfil: " + campos[9] + "\n";
 
         new AlertDialog.Builder(this)
                 .setTitle("Datos Registrados")
@@ -138,7 +143,4 @@ public class MainPage extends AppCompatActivity {
                 .setPositiveButton("Cerrar", null)
                 .show();
     }
-
-
-
 }

@@ -15,4 +15,12 @@
         <item>Otro</item>
     </string-array>
 
+    <string-array name="perfil">
+        <item>Seleccionar</item>
+        <item>Padre</item>
+        <item>Madre</item>
+        <item>Hij@</item>
+        <item>Familiar externo</item>
+    </string-array>
+
 </resources>
