@@ -95,7 +95,7 @@ public class ConsultarUsuarioActivity extends AppCompatActivity {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues valores = new ContentValues();
-        valores.put("nombre", nombre);
+        valores.put("nombres", nombre);
         valores.put("email", email);
 
         int rows = db.update("usuarios", valores, "id = ?", new String[]{String.valueOf(idUsuarioEncontrado)});

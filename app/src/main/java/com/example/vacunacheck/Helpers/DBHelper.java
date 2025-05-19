@@ -101,5 +101,40 @@ public class DBHelper extends SQLiteOpenHelper {
         return existe;
     }
 
+    public Cursor obtenerUsuarioPorCedula(String cedula) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM usuarios WHERE cedula = ?", new String[]{cedula});
+    }
+
+    public String obtenerCedula(String usuario, String contrasena) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String cedula = null;
+
+        Cursor cursor = db.rawQuery("SELECT cedula FROM usuarios WHERE usuario = ? AND contrasena = ?", new String[]{usuario, contrasena});
+
+        if (cursor.moveToFirst()) {
+            cedula = cursor.getString(0);
+        }
+
+        cursor.close();
+        db.close();
+        return cedula;
+    }
+
+    public boolean actualizarUsuario(String cedula, String nombres, String apellidos, String fechaNacimiento,
+                                     String genero, String email, String perfil) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nombres", nombres);
+        values.put("apellidos", apellidos);
+        values.put("fecha_nacimiento", fechaNacimiento);
+        values.put("genero", genero);
+        values.put("email", email);
+        values.put("perfil", perfil);
+
+        int filasAfectadas = db.update("usuarios", values, "cedula = ?", new String[]{cedula});
+
+        return filasAfectadas > 0;
+    }
 
 }
