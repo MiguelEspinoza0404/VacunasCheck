@@ -45,7 +45,6 @@ public class registro extends AppCompatActivity {
         etContrasenia = findViewById(R.id.etContrasenia);
         spinnerPerfil = findViewById(R.id.spinnerPerfil);
 
-        // Configurar adaptadores para los Spinners
         ArrayAdapter<CharSequence> generoAdapter = ArrayAdapter.createFromResource(this,
                 R.array.generos, android.R.layout.simple_spinner_item);
         generoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -56,10 +55,8 @@ public class registro extends AppCompatActivity {
         perfilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPerfil.setAdapter(perfilAdapter);
 
-        // Mostrar DatePicker al pulsar sobre la fecha
         tvFechaNacimiento.setOnClickListener(v -> showDatePicker());
 
-        // Botones
         findViewById(R.id.btnRegistrar).setOnClickListener(v -> registrar());
         findViewById(R.id.btnBorrar).setOnClickListener(v -> borrarCampos());
         findViewById(R.id.btnCancelar).setOnClickListener(v -> {
@@ -85,7 +82,6 @@ public class registro extends AppCompatActivity {
     }
 
     private void registrar() {
-        // Validar campos obligatorios
         if (etCedula.getText().toString().trim().isEmpty()
                 || etNombres.getText().toString().trim().isEmpty()
                 || etApellidos.getText().toString().trim().isEmpty()
@@ -103,14 +99,12 @@ public class registro extends AppCompatActivity {
 
         String estadoCivil = ((RadioButton) findViewById(rgEstadoCivil.getCheckedRadioButtonId())).getText().toString();
 
-        // Verificar si la cédula ya existe antes de insertar
         String cedula = etCedula.getText().toString().trim();
         if (dbHelper.cedulaExiste(cedula)) {
             Toast.makeText(this, "Ya existe un usuario con esta cédula", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Intentar insertar usuario
         boolean exito = dbHelper.insertarUsuario(
                 cedula,
                 etNombres.getText().toString().trim(),

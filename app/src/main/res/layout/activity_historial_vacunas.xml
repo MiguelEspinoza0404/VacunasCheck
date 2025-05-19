@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HistorialVacunasActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/etTipoVacuna"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tipo de vacuna" />
+
+        <EditText
+            android:id="@+id/etLote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lote de vacuna" />
+
+        <EditText
+            android:id="@+id/etFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fecha de aplicación"
+            android:focusable="false"
+            android:clickable="true"
+            android:inputType="none" />
+
+
+        <EditText
+            android:id="@+id/etLugar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lugar de aplicación" />
+
+        <Button
+            android:id="@+id/btnGuardarVacuna"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar vacuna" />
+
+        <Button
+            android:id="@+id/btnConsultarHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Consultar historial" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Historial de vacunas"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <ListView
+            android:id="@+id/listaHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="true"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"/>
+    </LinearLayout>
+</ScrollView>

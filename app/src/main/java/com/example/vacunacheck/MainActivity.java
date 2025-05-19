@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            // Validar usuario en la base de datos
             if (dbHelper.validarUsuario(username, password)) {
                 String cedula = dbHelper.obtenerCedula(username, password);
 
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "No se pudo obtener la cédula.", Toast.LENGTH_SHORT).show();
                 }
-                // Guardar sesión activa y usuario si se marcó "Recordarme"
                 if (checkboxRemember.isChecked()) {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("sesion_activa", true);

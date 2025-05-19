@@ -60,6 +60,20 @@ public class MainPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Button btnHistorialVacunas = findViewById(R.id.btnHistorialVacunas);
+        btnHistorialVacunas.setOnClickListener(view -> {
+            Intent intent = new Intent(MainPage.this, HistorialVacunasActivity.class);
+            startActivity(intent);
+        });
+
+        Button btnAbrirCalendario = findViewById(R.id.btnAbrirCalendario);
+        btnAbrirCalendario.setOnClickListener(v -> {
+            Intent intent = new Intent(MainPage.this, CalendarioActivity.class);
+            startActivity(intent);
+        });
+
+
     }
 
     @Override
