@@ -64,8 +64,20 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <RadioButton android:id="@+id/rbSoltero" android:text="Soltero" />
-            <RadioButton android:id="@+id/rbCasado" android:text="Casado" />
+
+            <RadioButton
+                android:id="@+id/rbSoltero"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:checked="false"
+                android:text="Soltero" />
+
+            <RadioButton
+                android:id="@+id/rbCasado"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:checked="false"
+                android:text="Casado" />
         </RadioGroup>
 
         <EditText

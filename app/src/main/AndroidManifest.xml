@@ -13,6 +13,12 @@
         android:theme="@style/Theme.VacunaCheck"
         tools:targetApi="31">
         <activity
+            android:name=".EditarPerfil"
+            android:exported="false" />
+        <activity
+            android:name=".Perfil"
+            android:exported="false" />
+        <activity
             android:name=".CrearUsuarioActivity"
             android:exported="false" />
         <activity

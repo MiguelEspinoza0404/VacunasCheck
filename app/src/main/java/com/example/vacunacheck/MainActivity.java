@@ -20,13 +20,13 @@ public class MainActivity extends AppCompatActivity {
     CheckBox checkboxRemember;
     DBHelper dbHelper;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         SharedPreferences prefs = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         if (prefs.getBoolean("sesion_activa", false)) {
-            // Si la sesión está activa, ir directo a MainPage
             startActivity(new Intent(MainActivity.this, MainPage.class));
             finish();
             return;
@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
-        // Inicialización de vistas
         editTextUsername = findViewById(R.id.etUsuario);
         editTextPassword = findViewById(R.id.etConstrasenia);
         buttonLogin = findViewById(R.id.buttonLogin);
@@ -54,10 +53,25 @@ public class MainActivity extends AppCompatActivity {
 
             // Validar usuario en la base de datos
             if (dbHelper.validarUsuario(username, password)) {
+                String cedula = dbHelper.obtenerCedula(username, password);
 
+                if (cedula != null) {
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("cedula", cedula);
+                    editor.apply();
+
+
+                    Intent intent = new Intent(MainActivity.this, Perfil.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "No se pudo obtener la cédula.", Toast.LENGTH_SHORT).show();
+                }
+                // Guardar sesión activa y usuario si se marcó "Recordarme"
                 if (checkboxRemember.isChecked()) {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("sesion_activa", true);
+                    editor.putString("usuario", username);
                     editor.apply();
                 }
 
