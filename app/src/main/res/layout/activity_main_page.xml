@@ -65,16 +65,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnMostrarDatos" />
 
-    <Button
-        android:id="@+id/btnEducacionyConsejos"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:onClick="EducacionyConsejos"
-        android:text="Educación y Consejos de Vacunación"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCrearUsuario" />
+
 
     <Button
         android:id="@+id/btnHistorialVacunas"
@@ -95,6 +86,17 @@
         app:layout_constraintTop_toBottomOf="@id/btnHistorialVacunas"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnEducacionyConsejos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="EducacionyConsejos"
+        android:text="Educación y Consejos de Vacunación"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAbrirCalendario" />
 
 
 

@@ -31,7 +31,6 @@ public class CrearUsuarioActivity extends AppCompatActivity {
         spinnerGenero = findViewById(R.id.spinnerGenero);
         spinnerPerfil = findViewById(R.id.spinnerPerfil);
 
-        // Configurar adaptadores para los Spinners
         ArrayAdapter<CharSequence> generoAdapter = ArrayAdapter.createFromResource(this,
                 R.array.generos, android.R.layout.simple_spinner_item);
         generoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

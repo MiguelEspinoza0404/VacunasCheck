@@ -49,7 +49,6 @@ public class EditarPerfil extends AppCompatActivity {
         spinnerPerfil = findViewById(R.id.spinnerPerfil);
         btnActualizar = findViewById(R.id.btnActualizar);
 
-        // Configurar adaptadores para los Spinners
         ArrayAdapter<CharSequence> generoAdapter = ArrayAdapter.createFromResource(this,
                 R.array.generos, android.R.layout.simple_spinner_item);
         generoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -60,12 +59,10 @@ public class EditarPerfil extends AppCompatActivity {
         perfilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPerfil.setAdapter(perfilAdapter);
 
-        // Mostrar DatePicker al pulsar sobre la fecha
         tvFechaNacimiento.setOnClickListener(v -> showDatePicker());
 
         dbHelper = new DBHelper(this);
 
-        //Obtenemos la cedula para cargar los datos en el activity
         SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
         cedulaOriginal = prefs.getString("cedula", null);
 
