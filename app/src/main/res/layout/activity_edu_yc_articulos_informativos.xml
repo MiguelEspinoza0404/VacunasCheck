@@ -87,7 +87,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             android:layout_marginBottom="15sp"
-                            android:scaleType="center"
+                            android:contentDescription="vacunas"
+                            app:srcCompat="@drawable/vacunas"
                             tools:srcCompat="@drawable/vacunas" />
 
                         <TextView
@@ -134,7 +135,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             android:layout_marginBottom="15sp"
+                            android:contentDescription="fiebre"
                             android:scaleType="center"
+                            app:srcCompat="@drawable/fiebreamarilla"
                             tools:srcCompat="@drawable/fiebreamarilla" />
 
                         <TextView
