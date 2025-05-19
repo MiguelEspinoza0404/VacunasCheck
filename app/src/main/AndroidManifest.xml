@@ -13,6 +13,18 @@
         android:theme="@style/Theme.VacunaCheck"
         tools:targetApi="31">
         <activity
+            android:name=".EduYC_Articulos_Informativos"
+            android:exported="false" />
+        <activity
+            android:name=".EduYC_TestVacunacion"
+            android:exported="false" />
+        <activity
+            android:name=".EduYC_PreguntasFrecuentes"
+            android:exported="false" />
+        <activity
+            android:name=".EducacionyConsejos"
+            android:exported="false" />
+        <activity
             android:name=".CrearUsuarioActivity"
             android:exported="false" />
         <activity

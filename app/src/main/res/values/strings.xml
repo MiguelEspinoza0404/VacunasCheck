@@ -23,4 +23,36 @@
         <item>Familiar externo</item>
     </string-array>
 
+    <string name="faq_pregunta_1">¿Qué efectos secundarios pueden causar las vacunas?</string>
+    <string name="faq_respuesta_1">Pueden presentarse efectos leves como fiebre, enrojecimiento o
+        dolor en el sitio de aplicación. Efectos graves son raros y
+        deben ser atendidos por un profesional de salud.</string>
+
+    <string name="faq_pregunta_2">¿Pueden las vacunas causar enfermedades crónicas o autismo?</string>
+    <string name="faq_respuesta_2">No, las vacunas no causan enfermedades crónicas ni autismo. </string>
+
+    <string name="faq_pregunta_3">¿Dónde puedo vacunar a mi hijo/a?</string>
+    <string name="faq_respuesta_3">En cualquier Centro de Salud del MSP,
+        hospitales públicos o en campañas móviles de vacunación. También se anuncian
+        brigadas en escuelas y comunidades.</string>
+
+    <string name="faq_pregunta_4">¿Qué vacunas necesito si voy a viajar dentro o fuera del país?</string>
+    <string name="faq_respuesta_4">Para zonas amazónicas se recomienda la vacuna contra fiebre amarilla.
+        Para viajes al extranjero, puede requerirse fiebre amarilla, COVID-19 u otras,
+        dependiendo del país destino.</string>
+    <string name="faq_pregunta_5">¿Puedo vacunarme si estoy embarazada?</string>
+    <string name="faq_respuesta_5">Sí, hay vacunas seguras para embarazadas como: Influenza y Tdap
+        (tétanos, difteria y tos ferina). De todas maneras, consulte a su médico para el
+        mejor momento de aplicación.</string>
+
+    <string name="art_titulo1">Vacunas incluidas en el esquema nacional de vacunación en Ecuador</string>
+    <string name="art_contenido1">En el esquema nacional de vacunación de Ecuador 2025, se incluyen vacunas contra
+        enfermedades como poliomielitis, sarampión, rubéola, varicela, fiebre amarilla, hepatitis, rotavirus,
+        difteria, tétanos y tosferina.</string>
+
+    <string name="art_titulo2">Importancia de la vacuna fiebre amarilla</string>
+    <string name="art_contenido2">La vacuna contra la fiebre amarilla es esencial para prevenir una enfermedad viral grave transmitida por mosquitos.
+        Brinda inmunidad de por vida con una sola dosis, protege a comunidades enteras, controla brotes y es requisito para
+        viajar a zonas endémicas. Su aplicación es segura, efectiva y salva vidas.</string>
+
 </resources>

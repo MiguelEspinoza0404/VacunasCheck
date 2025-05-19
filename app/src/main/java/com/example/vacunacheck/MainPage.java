@@ -143,4 +143,9 @@ public class MainPage extends AppCompatActivity {
                 .setPositiveButton("Cerrar", null)
                 .show();
     }
+
+    public void EducacionyConsejos(View v){
+        Intent ventanaEducacion = new Intent(this, EducacionyConsejos.class);
+        startActivity(ventanaEducacion);
+    }
 }
